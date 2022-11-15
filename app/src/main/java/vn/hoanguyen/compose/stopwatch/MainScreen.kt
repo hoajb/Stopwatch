@@ -67,7 +67,7 @@ fun MainScreen(stopwatchService: StopwatchService) {
                 )
             }
 
-            AnimatedContent(targetState = hours, transitionSpec = { addAnimation() }) {
+            AnimatedContent(targetState = minutes, transitionSpec = { addAnimation() }) {
                 Text(
                     text = minutes,
                     style = TextStyle(
@@ -78,7 +78,7 @@ fun MainScreen(stopwatchService: StopwatchService) {
                 )
             }
 
-            AnimatedContent(targetState = hours, transitionSpec = { addAnimation() }) {
+            AnimatedContent(targetState = seconds, transitionSpec = { addAnimation() }) {
                 Text(
                     text = seconds,
                     style = TextStyle(
@@ -161,7 +161,7 @@ fun EmptyScreen() {
 fun addAnimation(duration: Int = 600): ContentTransform {
     return slideInVertically(animationSpec = tween(durationMillis = duration)) { height -> height } + fadeIn(
         animationSpec = tween(durationMillis = duration)
-    ) with slideOutVertically(animationSpec = tween(durationMillis = duration)) { height -> height } + fadeOut(
+    ) with slideOutVertically(animationSpec = tween(durationMillis = duration)) { height -> -height } + fadeOut(
         animationSpec = tween(durationMillis = duration)
     )
 }
