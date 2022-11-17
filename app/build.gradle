@@ -55,6 +55,7 @@ android {
             ]
         }
     }
+    namespace 'vn.hoanguyen.compose.stopwatch'
 }
 
 // Allow references to generated code

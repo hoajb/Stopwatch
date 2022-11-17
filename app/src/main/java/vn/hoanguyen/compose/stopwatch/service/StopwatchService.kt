@@ -8,7 +8,6 @@ import android.content.Intent
 import android.os.Binder
 import android.os.Build
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.runtime.mutableStateOf
 import androidx.core.app.NotificationCompat
 import dagger.hilt.android.AndroidEntryPoint
 import vn.hoanguyen.compose.stopwatch.util.Constants.ACTION_SERVICE_CANCEL
@@ -20,6 +19,7 @@ import vn.hoanguyen.compose.stopwatch.util.Constants.NOTIFICATION_ID
 import vn.hoanguyen.compose.stopwatch.util.Constants.STOPWATCH_STATE
 import vn.hoanguyen.compose.stopwatch.util.formatTime
 import vn.hoanguyen.compose.stopwatch.util.pad
+import vn.hoanguyen.compose.stopwatch.viewmodel.StopwatchStateManagement
 import java.util.*
 import javax.inject.Inject
 import kotlin.concurrent.fixedRateTimer
@@ -44,12 +44,13 @@ class StopwatchService : Service() {
 
     private val binder = StopwatchBinder()
 
-    val seconds = mutableStateOf("00")
-    val minutes = mutableStateOf("00")
-    val hours = mutableStateOf("00")
+    val stopwatchStateManagement: StopwatchStateManagement by lazy { StopwatchStateManagement() }
 
-    var currentState = mutableStateOf(StopwatchState.Idle)
-        private set
+    private val seconds = stopwatchStateManagement.seconds
+    private val minutes = stopwatchStateManagement.minutes
+    private val hours = stopwatchStateManagement.hours
+
+    private val currentState = stopwatchStateManagement.currentState
 
     override fun onBind(intent: Intent?) = binder
 

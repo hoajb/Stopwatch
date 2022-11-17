@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import dagger.hilt.android.AndroidEntryPoint
 import vn.hoanguyen.compose.stopwatch.service.StopwatchService
 import vn.hoanguyen.compose.stopwatch.ui.theme.StopwatchTheme
+import vn.hoanguyen.compose.stopwatch.viewmodel.EmptyScreen
 
 @ExperimentalAnimationApi
 @AndroidEntryPoint
@@ -47,8 +48,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             StopwatchTheme {
                 if (isBound) {
-                    MainScreen(stopwatchService = stopwatchService)
-                } else {
+                    MainScreenUI(stopwatchStateManagement = stopwatchService.stopwatchStateManagement)
+                }
+                else {
                     EmptyScreen()
                 }
             }
